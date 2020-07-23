@@ -1,0 +1,41 @@
+\section{Radio definida por software}
+
+Radio definida por software o SDR (del inglés Software Defined Radio) es un sistema de radiocomunicaciones donde varios de los componentes, típicamente implementados en hardware (mezcladores, filtros, moduladores/demoduladores, detectores, etc), son implementados en software, utilizando computadora personal u otros dispositivos de procesamiento digital de señales. 
+
+
+Los sistemas de comunicación tiene como objetivo transmitir un mensaje $m(t)$ a través de un canal de banda de paso, es decir, un canal donde solo se puede usar un rango limitado de frecuencias. 
+Un buen ejemplo son las transmisiones de radio FM comerciales, generalmente restringidas a una banda de frecuencia entre \SI{85} y \SI{108}{MHz} que debe acomodar múltiples estaciones, a cada una de las cuales se le asigna una banda $\le$ \SI{200}{KHz}. 
+La señal debe cambiarse frecuencia para satisfacer los requerimientos del canal de comunicación.
+Esto se logra mediante la modulación, por lo que una característica de una onda portadora (generalmente sinusoide como $ A_p  cos(2 \pi f_c t) $ )  variará de acuerdo con la señal de modulación: $ m (t) $ (también llamado el mensaje) que produce una señal modulada : $ s(t) = B(t) \cdot cos(2 \pi f_c  t + \theta(t) ) $. 
+
+
+Principalmente, hay dos formas  de modulación analógica: 
+\begin{itemize}
+    \item Modulación de amplitud (AM): donde la característica que se hace para variar es la amplitud B(t)B (t) de la portadora
+    \item Modulación angular (PM / FM): donde la característica que varía es la fase $\theta(t)$ de la portadora.
+\end{itemize}
+
+Términos comúnmente utilizados en telecomunicaciones:
+
+\begin{itemize}
+    \item Banda base (señal): señal que tiene soporte en un rango estrecho de frecuencias alrededor de 0 Hz.
+    \item Banda de paso (señal): señal que tiene soporte en un rango estrecho de frecuencias sobre una frecuencia central fc.
+    \item Ancho de banda de(de una señal): alguna medida del soporte de una señal en el dominio de la frecuencia (tiene muchas definiciones técnicas diferentes).
+\end{itemize}  
+
+
+Algunos ejemplos son muchos receptores de radio AM/FM convencionales en los que el usuario selecciona un canal sintonizando la radio a su frecuencia de onda portadora.
+
+En un esquema de conversión directa se debe aplicar un filtro lo suficientemente selectivo a la señal que proviene de la antena para filtrar otras señales y ruidos fuera de la banda de interés antes de la de-modulación. 
+Para el propósito descrito anteriormente, también debe tener una frecuencia central ajustable que hace que su implementación práctica sea problemática. 
+Las arquitecturas superheterodinas resuelven esto convirtiendo primero a una frecuencia intermedia (IF) en la que se pueden aplicar etapas de filtrado y amplificación más rigurosas ahora que la señal está en una frecuencia preestablecida fija.
+
+Esta conversión descendente se logra mezclando con una onda sinusoidal de la frecuencia apropiada generada por un oscilador local (LO). 
+Cuando el usuario selecciona una frecuencia $f_c$ para sintonizar, el LO genera una onda sinusoidal en $f_{LO} =f_c -f_{IF}$  (inyección en el lado bajo) o $f_{LO} =f_c  + f_{IF}$  (alto) inyección lateral, tenga en cuenta que cuando utilice esta frecuencia, el espectro de la señal resultante se invertirá en frecuencia). Un subproducto de esta mezcla es que tanto $fc$ como $fc\pm 2 f_{IF}$ (para inyección lateral alta / baja respectivamente) se mezclan en la frecuencia intermedia. La primera es la frecuencia de interés y la otra es la llamada frecuencia de imagen.
+  
+
+Por lo tanto, una etapa inicial de filtrado de radiofrecuencia (RF) es útil para filtrar cualquier señal o ruido en frecuencia de imagen. 
+Este filtro de RF a menudo tiene una frecuencia central variable cuya sintonía se ajusta con el LO. 
+Otro componente común de la sección de RF del receptor es un amplificador de bajo ruido (LNA).
+Si bien tradicionalmente la sección de procesamiento de señal de frecuencia intermedia era analógica, últimamente, debido a la utilización de los circuitos integrados y la disponibilidad de microprocesadores en muchos dispositivos (como teléfonos celulares), la tendencia ha sido manejar algunas de estas tareas digitalmente. 
+En este caso, las arquitecturas superheterodinas son útiles ya que convierten una señal de banda de paso que es demasiado poco práctica para muestrear (debido a que su alta frecuencia requiere frecuencias de muestreo muy altas) a una señal de banda de paso de frecuencia más baja que es más manejable muestrear sin alias.

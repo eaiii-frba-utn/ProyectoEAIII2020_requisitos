@@ -1,0 +1,26 @@
+\begin{center}
+\begin{circuitikz} \draw
+(0,0) to[bandpass, l^=$RF$] (1.5,0)
+(1.5,0) to[amp] (3,0)
+
+(3.5,0) node[mixer]{}
+(4,-2) node[oscillator]{}
+(3.5,-1.5) to[short] (3.5,-0.5)
+
+(4,0) to[bandpass, l^=$1IF$] (5.5,0)
+(5.5,0) to[amp] (7,0)
+
+(7.5,0) node[mixer]{}
+(8,-2) node[oscillator]{}
+(7.5,-1.5) to[short] (7.5,-0.5)
+
+(8,0) to[bandpass, l^=$2IF$] (9.5,0)
+(9.5,0) to[vamp] (12.5,0)
+
+(11,-2) to[short] (11,-0.4)
+(12.5,-2) to[twoport,l=$AGC$] (11,-2)
+(12.5,-2) to[short] (12.5,0);
+
+\end{circuitikz}
+
+\end{center}

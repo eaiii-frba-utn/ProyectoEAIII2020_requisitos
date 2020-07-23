@@ -1,0 +1,53 @@
+Modulación de amplitud
+   
+\input{circuits/diagrama1.tex}
+
+Una forma simple de modulación es la modulación de amplitud de banda lateral doble (DSB-AM). 
+Esta una modulación lineal que consiste en modificar la amplitud de la señal portadora en función de las variaciones de la señal de información o moduladora. La modulación en doble banda lateral equivale a una modulación AM, pero sin reinserción de la portadora.
+La portadora no transmite ninguna de las características que definen el mensaje y encima consume la mayoría de la energía de la onda modulada. El ancho de banda necesario para la transmisión de información es el doble de la frecuencia de la señal moduladora, causando una pérdida de ancho de banda en el espectro. 
+
+
+Esto se logra simplemente multiplicando en tiempo el mensaje con una onda portadora sinusoidal.
+$$ s(t) =A_p \cdot cos(2 \pi f_c t)  $$
+
+En el dominio de la frecuencia esto tiene el efecto de convolución la transformada de Fourier $M(f)$ de $m(t)$ con el de una onda coseno:
+$$ S(f) = M(f) \otimes A_p \cdot [\delta(f_c) +\delta(f_c)] $$ 
+$$ S(f) = A_p \cdot [M(f − f_c) + M (f + f_c)] $$
+
+
+Si m(t) es una señal de banda base, esto la convierte en una señal de banda de paso alrededor de fc para que pueda transmitirse a través de un canal de paso de banda apropiado.
+  
+
+En teoría, la demodulación de la señal se puede hacer multiplicando nuevamente por una sinusoide de la frecuencia apropiada. Esta segunda mezcla cambiará una copia del mensaje original a f = 0 y otra a una frecuencia f= 2fcf = 2fc que se puede descartar mediante el filtrado de paso bajo. 
+  
+
+Sin embargo, en el lado del receptor no conocemos la fase original de la portadora, que indicaremosϕ, por lo que es imposible alinearla con la sinusoide generada localmente en el extremo del receptor. Introduciendo esta fase inicial, nuestra señal recibida puede escribirse como:
+s(t) ==Am(t) cos (2πfct+ϕ)Am(t) [cos (2πfct) cos (ϕ)-sin (2πfct) sin (ϕ)]s (t) = Am (t) cos⁡ (2πfct + ϕ) = Am (t) [cos⁡ (2πfct) cos⁡ (ϕ) −sin⁡ (2πfct) sin⁡ (ϕ)]
+El resultado de nuestro ingenuo esquema de demodulación es:
+s(t) cos (2πfct) =A2m(t) {[1 + cos (4πfct)] cos (ϕ)-sin (4πfct) sen (ϕ)}s (t) cos⁡ (2πfct) = A2m (t) {[1 + cos⁡ (4πfct)] cos⁡ (ϕ) −sin⁡ (4πfct) sin⁡ ()}
+Esto es efectivamente A2m(t) cos (ϕ)A2m (t) cos⁡ (ϕ) + un par de términos en la frecuencia 2fc2fc que son el resultado de esta segunda mezcla. El paso bajo filtra esta señal para deshacerse de estos componentes de frecuencia más alta y luego produce el resultado deseado con una advertencia: el factor constante cos (ϕ)cos⁡ (ϕ), que en el peor de los casos es 0 cuando las dos ondas están en cuadratura con cada una otro.
+Una forma de evitar la limitación de este esquema es mezclar la señal recibida no solo con una onda sinusoidal generada localmente cos (2πfct)cos⁡ (2πfct) sino también con una segunda sinusoide desplazada 90º en la fase: -sin (2πfct)−sin ⁡ (2πfct). Después de un filtrado de paso bajo, esto resulta en: 
+sb(t)≐hLP(t)∗s(t)[cos (2πfct)-sin (2πfct)]=A2m(t)[cos (ϕ) sin (ϕ)]sb (t) ≐hLP (t) ∗ s (t) [cos⁡ (2πfct) −sin⁡ (2πfct)] = A2m (t) [cos⁡ (ϕ) sin⁡ (ϕ)]
+Y desde El seno y el coseno no pueden ser ambos, siempre podemos recuperar nuestro mensaje. Una forma elegante de hacerlo es mediante la adopción de la norma euclídea del vector que elimina el factor en función de φφrendimiento Am(t)/ 2Am (t) / 2. También podemos averiguar la fase de la onda portadora original a partir del arctangente de los dos componentes.
+
+
+Sin embargo, es importante tener en cuenta que, en la norma AM, el mensaje primero debe cambiarse con una constante C tal que m (t) + C≥0m (t) + C≥0. Esto significa un mayor consumo de energía ya que estamos "desperdiciando" la transmisión de energía de la portadora junto con el mensaje, pero, por otro lado, el receptor tiene acceso a la portadora original y hay disponibles algunos esquemas de demodulación más simples, como la detección de sobres.
+   1. Representación compleja en banda base
+Lo que hemos hecho para demodular AM es esencialmente convertir a la baja la señal modulada a banda base. Sin embargo, nos dimos cuenta de que la mezcla con una sola sinusoide no captura toda la información presente en la señal de la banda de paso original, sino que se deben usar dos sinusoides que no estén en fase. Esto puede interpretarse haciendo uso del hecho de que las transformadas de Fourier de señales reales son, en el caso general, funciones complejas de frecuencia que satisfacen S(f) =S∗(-f)S (f) = S ∗ (- f). Mezclar una señal de banda de paso con una onda de coseno cambiará el espectro pero eliminará cualquier componente imaginario, ya que las contribuciones de frecuencia positiva y negativa se cancelarán entre sí. Lo mismo ocurre con las ondas sinusoidales y los componentes reales. 
+Una forma de retener información completa es simplemente multiplicar la señal de la banda de paso con un sinusoide complejo e-j2πfcte − j2πfct que cambiará solo la parte positiva del espectro a f = 0 evitando todo el problema.
+  
+
+Eso es exactamente lo que hemos hecho con nuestra demodulación modificada, excepto que lo disfrazamos escribiéndolo como un vector real 2 en su lugar: 
+e-j2πfct= cos (2πfct)-jsin (2πfct)→[cos (2πfct)-sin (2πfct)]e − j2πfct = cos⁡ (2πfct) −jsin⁡ (2πfct) → [cos⁡ (2πfct) −sin⁡ (2πfct)]
+De hecho, dada cualquier señal de banda de paso s(t)s ( t), podemos escribirlo en la forma: 
+s(t) = 2sI(t) cos (2πfct)-2sQ(t) sen (2πfct)s (t) = 2sI (t) cos⁡ (2πfct ) −2sQ (t) sin⁡ (2πfct)componentes de
+que define implícitamente sus In fase (sI(t)sI (t)) y Quadrature (sQ(t)sQ (t)) (I / Q). Se representación de banda base compleja se define entonces como: 
+sb(t)≐Si(t)+JSQ(t)sb (t) ≐sI (t) + JSQ (t)
+Esta es una representación muy útil de una señal de banda de paso desde contiene la misma información que la señal original, pero está limitada por la banda por una frecuencia mucho más baja. Si s(t)s (t) tiene un ancho de banda de W alrededor de una frecuencia fcfc, entonces está limitado por bandas por fc+W/ 2fc + W / 2 y, por lo tanto, por el teorema de Nyquist, se debe muestrear al menos a fs≥2fc+Wfs≥2fc + W. Por el contrario, sb(t)sb (t) está limitado por la banda en W/ 2W / 2 y se puede muestrear y procesar digitalmente en el (generalmente) mucho más accesible fs≥Wfs≥W.
+  
+
+Formas alternativas de escribir s(t)s (t) como una función de sb(t)SB (t) son: 
+s(t)== Re [2sb(t)EJ2πfct]2|sb(t)|cos [2πfct+∠sb(t)]s (t) = Re [2sb (t) ej2πfct] = 2∣sb (t) ∣cos⁡ [2πfct + ∠sb (t)]
+La última expresión hace evidente lo que ya En la sección anterior se vio cómo demodular una señal de AM, dada su compleja representación de banda base. Que equivale a tomar su norma compleja: ∣sb(t)∣∣sb (t) ∣ (también llamado el sobre). Del mismo modo, su fase ∠sb(t)∠sb (t) nos da toda la información necesaria para demodular cualquier modulación basada en ángulos.
+Ahora podemos representar el mismo diagrama que muestra cómo obtener la representación de banda base compleja y reconstruir la señal de banda de paso original pero en notación compleja:
+  

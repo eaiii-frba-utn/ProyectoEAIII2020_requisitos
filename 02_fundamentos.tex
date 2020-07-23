@@ -1,0 +1,47 @@
+\section{Fundamentos teóricos}
+
+\subsection{Referencias}
+Este es un texto de muestra como ejemplo.
+
+Las referencias deben ser completas con formato bibtex en el archivo 'ref.bib'.
+Puede luego citar las referencias como \cite{ex}.
+
+\subsection{Circuitos en Latex}
+
+Los circuitos pueden ser editados empleando Latex~.
+
+\input{circuits/diagrama3}
+
+
+\subsection{Imágenes}
+Las imágenes pueden ser incluidas como se muestra a continuación.
+
+\subsubsection{Una columna}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{fig/frontend.png}
+	\caption{Esto es un diagrama.}
+	\label{fig:diagrama}
+\end{figure}
+
+
+\subsubsection{Dos columnas}
+Las imágenes pueden ser también puestas en dos columnas, como se muestra en el ejemplo siguiente.
+
+\begin{figure}[ht]
+	\centering
+	\begin{minipage}[c]{0.4\linewidth}
+		\includegraphics[width=0.9\linewidth]{fig/frontend.png}
+		\caption{Esto es un diagrama.}
+		\label{fig:logo1}
+	\end{minipage}
+	\hspace{0.4cm}
+	\begin{minipage}[c]{0.4\linewidth}
+		\includegraphics[width=0.9\linewidth]{fig/UTNFRBA.png}
+		\caption{Darker logo}
+		\label{fig:logo2}
+	\end{minipage}%
+\end{figure}
+
+
+
